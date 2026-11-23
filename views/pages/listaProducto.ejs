@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <%- include('../secciones/head'); %>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <main>
+        <div class="container">
+            <%- include('../secciones/menu'); %>
+            <h1>Catálogo de productos</h1>
+            <p>UT de San Juan</p>
+
+            <div class="row mt-5">
+                <div class="col-2"></div>
+                <div class="col-8">
+                    <a class="btn btn-primary mb-3" href="/insertarProducto">Nuevo producto</a>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="mb-0">Lista de productos</h2>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>Marca</th>
+                                        <th>Precio</th>  
+                                        <th>Editar</th>
+                                        <th>Eliminar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if (productos && productos.length > 0) { %>
+                                        <% productos.forEach((producto) => { %>
+                                            <tr class="align-middle">
+                                                <td><%= producto.idProducto || producto.id %></td>
+                                                <td><%= producto.nombreProducto %></td>
+                                                <td><%= producto.marcaProducto %></td>
+                                                <td>$<%= producto.precioProducto %></td>
+                                                <td>
+                                                    <a class="btn btn-warning btn-sm" href="/buscarProducto/<%= producto.idProducto || producto.id %>">Editar</a>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-danger btn-sm" href="/eliminarProducto/<%= producto.idProducto || producto.id %>" onclick="return confirm('¿Estás seguro de eliminar este producto?');">Eliminar</a>
+                                                </td>
+                                            </tr>
+                                        <% }); %>
+                                    <% } else { %>
+                                        <tr>
+                                            <td colspan="6" class="text-center">No hay productos registrados.</td>
+                                        </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div> 
+                    </div> 
+                </div> 
+                <div class="col-2"></div>
+            </div> 
+        </div> 
+    </main>
+
+    <footer class="footer mt-auto py-3 bg-light">
+        <%- include('../secciones/footer'); %>
+    </footer>
+</body>
+</html>
